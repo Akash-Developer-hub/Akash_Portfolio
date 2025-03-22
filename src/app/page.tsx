@@ -3,8 +3,6 @@
 import Image from 'next/image';
 import { AnimatedGridPattern } from '@/component/InteractiveGridPatternDemo';
 import { IconCloud } from '@/components/magicui/icon-cloud';
-import { FaJs, FaReact, FaNodeJs, FaGitAlt } from "react-icons/fa";
-import { SiTypescript, SiNextdotjs, SiTailwindcss, SiExpress, SiMongodb, SiGithub } from "react-icons/si";
 import { motion } from "framer-motion";
 import { loadOptions } from "@tsparticles/engine";
 import { useState } from 'react';
