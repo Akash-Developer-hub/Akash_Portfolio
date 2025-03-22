@@ -6,28 +6,12 @@ import { IconCloud } from '@/components/magicui/icon-cloud';
 import { FaJs, FaReact, FaNodeJs, FaGitAlt } from "react-icons/fa";
 import { SiTypescript, SiNextdotjs, SiTailwindcss, SiExpress, SiMongodb, SiGithub } from "react-icons/si";
 import { motion } from "framer-motion";
-import Tilt from 'react-parallax-tilt';
-import { Particles } from "@tsparticles/react";
 import { loadOptions } from "@tsparticles/engine";
 import { useState } from 'react';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link as ScrollLink } from 'react-scroll';
-
-// Skill Icons Mapping
-const skillIcons = {
-  JavaScript: <FaJs className="text-yellow-500" />,
-  TypeScript: <SiTypescript className="text-blue-500" />,
-  "React.js": <FaReact className="text-blue-500" />,
-  "Next.js": <SiNextdotjs className="text-black" />,
-  "Tailwind CSS": <SiTailwindcss className="text-teal-500" />,
-  "Node.js": <FaNodeJs className="text-green-500" />,
-  "Express.js": <SiExpress className="text-gray-500" />,
-  MongoDB: <SiMongodb className="text-green-500" />,
-  Git: <FaGitAlt className="text-orange-500" />,
-  GitHub: <SiGithub className="text-black" />,
-};
 
 const skillsIcons = [
   '/icons/icon(1).svg',
@@ -78,52 +62,8 @@ const skillsData = [
     ],
   },
 ];
-// Proficiency Levels for Progress Bars
-const proficiencyLevels = {
-  JavaScript: 90,
-  TypeScript: 80,
-  "React.js": 85,
-  "Next.js": 75,
-  "Tailwind CSS": 95,
-  "Node.js": 88,
-  "Express.js": 82,
-  MongoDB: 78,
-  Git: 92,
-  GitHub: 85,
-};
-
-// Particles.js Configuration for Animated Background
-const particlesConfig = {
-  particles: {
-    number: {
-      value: 50,
-    },
-    size: {
-      value: 3,
-    },
-    color: {
-      value: "#007BFF", // Deep blue color
-    },
-    links: {
-      enable: true,
-      distance: 150,
-      color: "#007BFF",
-      opacity: 0.4,
-      width: 1,
-    },
-    move: {
-      enable: true,
-      speed: 2,
-    },
-  },
-};
 
 const HomePage: React.FC = () => {
-  // Initialize particles
-  const particlesInit = async (engine: any) => {
-    await loadOptions(engine);
-  };
-
   const [isHovered, setIsHovered] = useState(false);
   const [activeSkill, setActiveSkill] = useState<string | null>(null);
 
@@ -156,7 +96,7 @@ const HomePage: React.FC = () => {
 
       {/* Hero Section */}
       <div id="hero" className="relative z-10 text-center pt-24">
-        <h1 className="text-5xl font-bold mb-6 text-black animate-fade-in">Hi, I'm Akash! 👋</h1>
+        <h1 className="text-5xl font-bold mb-6 text-black animate-fade-in">Hi, I&apos;m Akash! 👋</h1>
         <div
           className="relative w-32 h-32 mx-auto mb-6 group"
           onMouseEnter={() => setIsHovered(true)}
@@ -176,7 +116,7 @@ const HomePage: React.FC = () => {
         </div>
         <h2 className="text-3xl font-semibold mb-4 text-black">Full-Stack Developer</h2>
         <p className="text-black mb-6 max-w-2xl mx-auto">
-          Welcome to my personal page! I'm a passionate MERN-Stack developer who loves building innovative and user-friendly web applications.
+          Welcome to my personal page! I&apos;m a passionate MERN-Stack developer who loves building innovative and user-friendly web applications.
         </p>
         <p className="text-black max-w-2xl mx-auto">
           Just an indie 🌟 developer who enjoys turning ideas into reality through code.
@@ -222,12 +162,12 @@ const HomePage: React.FC = () => {
 
           <div className="text-left max-w-2xl space-y-6 animate-fade-in">
             <p className="text-black text-lg leading-relaxed">
-              Hey, I'm <span className="font-semibold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">Akash</span>, a passionate
+              Hey, I&apos;m <span className="font-semibold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">Akash</span>, a passionate
               <span className="font-semibold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent"> Full-Stack Developer</span> dedicated to crafting seamless and innovative web applications.
               With expertise in the <span className="font-semibold bg-gradient-to-r from-indigo-500 to-blue-500 bg-clip-text text-transparent">MERN Stack</span>, I specialize in building dynamic, user-centric digital experiences.
             </p>
             <p className="text-black">
-              I'm also an <span className="font-semibold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">open-source contributor</span>, a <span className="font-semibold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">problem solver</span>, and an <span className="font-semibold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">AI enthusiast</span> exploring the latest tech trends.
+              I&apos;m also an <span className="font-semibold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">open-source contributor</span>, a <span className="font-semibold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">problem solver</span>, and an <span className="font-semibold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">AI enthusiast</span> exploring the latest tech trends.
             </p>
 
             <div className="flex flex-wrap gap-4 mt-6">
@@ -313,7 +253,7 @@ const HomePage: React.FC = () => {
             &times;
           </button>
           <h3 className="text-2xl font-bold text-black mb-4 border-b-2">{activeSkill}</h3>
-          <p className="text-black">Here's more about {activeSkill}: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum.</p>
+          <p className="text-black">Here&apos;s more about {activeSkill}: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum.</p>
         </motion.div>
       )}
 
