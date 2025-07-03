@@ -96,3 +96,9 @@ html, body {
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE */
 }
+body {
+  cursor: none !important; /* Hide cursor */
+}
+a, button, input, textarea, select, [role="button"] {
+  cursor: none !important;
+}

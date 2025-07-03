@@ -10,6 +10,120 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link as ScrollLink } from 'react-scroll';
+import { HeroMockupOverlay } from '@/component/MockupBackground';
+
+const BottomGradient = () => {
+  return (
+    <>
+      <span className="absolute inset-x-0 -bottom-px block h-px w-full bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-0 transition duration-500 group-hover/btn:opacity-100" />
+      <span className="absolute inset-x-10 -bottom-px mx-auto block h-px w-1/2 bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-0 blur-sm transition duration-500 group-hover/btn:opacity-100" />
+    </>
+  );
+};
+
+import { ReactNode } from 'react';
+import CustomCursor from '@/component/CustomCursor';
+import { TracingBeam } from '@/component/TracingBeam';
+
+interface LabelInputContainerProps {
+  children: ReactNode;
+  className?: string;
+}
+
+const LabelInputContainer = ({ children, className }: LabelInputContainerProps) => {
+  return (
+    <div className={`flex w-full flex-col space-y-2 ${className}`}>
+      {children}
+    </div>
+  );
+};
+
+const ContactSection = () => {
+  const [formData, setFormData] = useState({
+    firstname: '',
+    lastname: '',
+    email: '',
+    message: '',
+  });
+
+  const handleChange = (e: { target: { id: any; value: any; }; }) => {
+    const { id, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [id]: value,
+    }));
+  };
+
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    console.log('Form submitted:', formData);
+    // Handle form submission logic here
+  };
+
+  return (
+    <div id="contact" className="relative z-10 text-center mt-20 p-8 max-w-4xl mx-auto rounded-lg shadow-xl bg-white/50 backdrop-blur-2xl border border-gray-700">
+      <h2 className="text-4xl font-bold mb-6 text-black">Contact</h2>
+      <p className="text-black mb-8">
+        Feel free to reach out to me via the form below.
+      </p>
+      <form className="my-8" onSubmit={handleSubmit}>
+        <div className="mb-4 flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2">
+          <LabelInputContainer>
+            <label htmlFor="firstname" className="block text-left text-sm font-medium text-neutral-600">First Name</label>
+            <input
+              id="firstname"
+              type="text"
+              value={formData.firstname}
+              onChange={handleChange}
+              placeholder="Your first name"
+              className="shadow-input w-full rounded-md border border-gray-300 p-2"
+            />
+          </LabelInputContainer>
+          <LabelInputContainer>
+            <label htmlFor="lastname" className="block text-left text-sm font-medium text-neutral-600">Last Name</label>
+            <input
+              id="lastname"
+              type="text"
+              value={formData.lastname}
+              onChange={handleChange}
+              placeholder="Your last name"
+              className="shadow-input w-full rounded-md border border-gray-300 p-2"
+            />
+          </LabelInputContainer>
+        </div>
+        <LabelInputContainer className="mb-4">
+          <label htmlFor="email" className="block text-left text-sm font-medium text-neutral-600">Email Address</label>
+          <input
+            id="email"
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Your email"
+            className="shadow-input w-full rounded-md border border-gray-300 p-2"
+          />
+        </LabelInputContainer>
+        <LabelInputContainer className="mb-4">
+          <label htmlFor="message" className="block text-left text-sm font-medium text-neutral-600">Message</label>
+          <textarea
+            id="message"
+            value={formData.message}
+            onChange={handleChange}
+            placeholder="Your message"
+            className="shadow-input w-full rounded-md border border-gray-300 p-2"
+          />
+        </LabelInputContainer>
+        <button
+          className="group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset]"
+          type="submit"
+        >
+          Send Message
+          <BottomGradient />
+        </button>
+      </form>
+    </div>
+  );
+};
+
 
 const skillsIcons = [
   '/icons/icon(1).svg',
@@ -76,193 +190,211 @@ const HomePage: React.FC = () => {
   };
 
   return (
+
     <div className="relative flex flex-col items-center justify-center min-h-screen text-black">
-      {/* Background Pattern with Background Color */}
-      <div className="absolute inset-0">
-        <AnimatedGridPattern />
-      </div>
-
-      {/* Navigation Bar */}
-      <nav className="fixed top-0 w-full backdrop-blur-md shadow-sm p-4 z-20 rounded-b-lg">
-        <ul className="flex justify-center space-x-8">
-          <li><ScrollLink to="hero" smooth={true} duration={500} className="text-black hover:text-blue-500 transition-colors duration-300 cursor-pointer">Home</ScrollLink></li>
-          <li><ScrollLink to="about" smooth={true} duration={500} className="text-black hover:text-blue-500 transition-colors duration-300 cursor-pointer">About</ScrollLink></li>
-          <li><ScrollLink to="skills" smooth={true} duration={500} className="text-black hover:text-blue-500 transition-colors duration-300 cursor-pointer">Skills</ScrollLink></li>
-          <li><ScrollLink to="contact" smooth={true} duration={500} className="text-black hover:text-blue-500 transition-colors duration-300 cursor-pointer">Contact</ScrollLink></li>
-        </ul>
-      </nav>
-
-      {/* Hero Section */}
-      <div id="hero" className="relative z-10 text-center pt-24">
-        <h1 className="text-5xl font-bold mb-6 text-black animate-fade-in">Hi, I&apos;m Akash! 👋</h1>
-        <div
-          className="relative w-32 h-32 mx-auto mb-6 group"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <Image
-            src="/Aboutme.jpg"
-            alt="Akash"
-            layout="fill"
-            className="rounded-full object-cover border-4 border-gray-700 shadow-lg transform transition-transform duration-300 group-hover:scale-110"
-          />
-          {isHovered && (
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-black rounded-full">
-              <span>Check out my skills!</span>
-            </div>
-          )}
+      <CustomCursor />
+      <TracingBeam>
+        {/* Background Pattern with Background Color */}
+        <div className="absolute inset-0 z-0">
+          <AnimatedGridPattern />
         </div>
-        <h2 className="text-3xl font-semibold mb-4 text-black">Full-Stack Developer</h2>
-        <p className="text-black mb-6 max-w-2xl mx-auto">
-          Welcome to my personal page! I&apos;m a passionate MERN-Stack developer who loves building innovative and user-friendly web applications.
-        </p>
-        <p className="text-black max-w-2xl mx-auto">
-          Just an indie 🌟 developer who enjoys turning ideas into reality through code.
-        </p>
-      </div>
 
-      {/* Social Links */}
-      <div className="flex space-x-6 mt-8 z-10">
-        {[
-          { href: "https://www.linkedin.com/in/akash-s-", icon: "/linkedin.png", alt: "LinkedIn" },
-          { href: "https://github.com/Akash-Developer-hub", icon: "/github.png", alt: "GitHub" },
-          { href: "https://instagram.com", icon: "/instagram.png", alt: "Instagram" },
-        ].map((social, index) => (
-          <a
-            key={index}
-            href={social.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:scale-110"
-          >
-            <Image src={social.icon} alt={social.alt} width={44} height={28} />
-          </a>
-        ))}
-      </div>
+        {/* Navigation Bar */}
+        <nav className="fixed top-0 w-full backdrop-blur-md shadow-sm p-4 z-50 rounded-b-lg border-b border-black">
+          <ul className="flex justify-center space-x-8">
+            <li><ScrollLink to="hero" smooth={true} duration={500} className="text-black hover:text-blue-500 transition-colors duration-300 cursor-pointer">Home</ScrollLink></li>
+            <li><ScrollLink to="about" smooth={true} duration={500} className="text-black hover:text-blue-500 transition-colors duration-300 cursor-pointer">About</ScrollLink></li>
+            <li><ScrollLink to="skills" smooth={true} duration={500} className="text-black hover:text-blue-500 transition-colors duration-300 cursor-pointer">Skills</ScrollLink></li>
+            <li><ScrollLink to="contact" smooth={true} duration={500} className="text-black hover:text-blue-500 transition-colors duration-300 cursor-pointer">Contact</ScrollLink></li>
+          </ul>
+        </nav>
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="relative z-20 w-full max-w-6xl mx-auto p-10 rounded-lg shadow-xl bg-white/50 backdrop-blur-2xl border border-gray-700 transform transition-all duration-500 hover:shadow-xl hover:scale-[1.009]">
 
-      {/* About Me Section */}
-      <div id="about" className="relative z-10 text-center mt-20 p-8 w-full max-w-6xl mx-auto rounded-lg shadow-xl backdrop-blur-lg border border-gray-700 transform transition-all duration-500 hover:shadow-xl hover:scale-102">
-        <h2 className="text-5xl font-extrabold mb-8 text-black relative inline-block">
-          About Me
-          <span className="absolute -bottom-2 left-1/2 w-32 h-1.5 bg-black transform -translate-x-1/2 rounded-full"></span>
-        </h2>
+            <div id="hero" className="flex flex-col md:flex-row items-center gap-10">
 
-        <div className="flex flex-col md:flex-row items-center justify-center gap-12">
-          <div className="relative w-64 h-64 md:w-72 md:h-72 rounded-full shadow-xl overflow-hidden border-4 border-gray-700 transform transition-all hover:scale-110 hover:shadow-xl hover:border-blue-500 animate-pulse">
-            <Image
-              src="/Aboutme.jpg"
-              alt="Akash"
-              layout="fill"
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-1000"></div>
-          </div>
-
-          <div className="text-left max-w-2xl space-y-6 animate-fade-in">
-            <p className="text-black text-lg leading-relaxed">
-              Hey, I&apos;m <span className="font-semibold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">Akash</span>, a passionate
-              <span className="font-semibold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent"> Full-Stack Developer</span> dedicated to crafting seamless and innovative web applications.
-              With expertise in the <span className="font-semibold bg-gradient-to-r from-indigo-500 to-blue-500 bg-clip-text text-transparent">MERN Stack</span>, I specialize in building dynamic, user-centric digital experiences.
-            </p>
-            <p className="text-black">
-              I&apos;m also an <span className="font-semibold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">open-source contributor</span>, a <span className="font-semibold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">problem solver</span>, and an <span className="font-semibold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">AI enthusiast</span> exploring the latest tech trends.
-            </p>
-
-            <div className="flex flex-wrap gap-4 mt-6">
-              {[
-                { icon: "💻", text: "Coding" },
-                { icon: "🚀", text: "Tech Innovation" },
-                { icon: "📖", text: "Learning AI" },
-                { icon: "✈️", text: "Traveling" },
-              ].map((item, index) => (
-                <span
-                  key={index}
-                  className="px-6 py-3 bg-gray-700 rounded-lg text-white flex items-center gap-3 shadow-md transition-all duration-300 hover:shadow-lg hover:scale-110"
-                  onClick={() => setActiveSkill(item.text)}
-                >
-                  <span className="text-2xl">{item.icon}</span>
-                  <span className="font-medium">{item.text}</span>
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Skills Section */}
-      <div id="skills" className="relative z-10 text-center mt-20 p-8 w-full max-w-6xl mx-auto rounded-lg shadow-xl backdrop-blur-lg border border-gray-700 transform transition-all duration-500 hover:shadow-xl hover:scale-102">
-        <h2 className="text-5xl font-extrabold text-center mb-12 text-black relative inline-block">
-          Skills
-          <span className="absolute top-12 left-1/2 w-32 h-1.5 bg-black transform -translate-x-1/2 rounded-full"></span>
-        </h2>
-
-        <div className="flex flex-col md:flex-row items-center justify-between gap-10">
-          {/* Rotating 3D Skill Icons with Glow Effect */}
-          <div className="w-full md:w-1/2 flex items-center justify-center">
-            <div className="w-[350px] h-[350px] flex items-center justify-center relative">
-              <IconCloud images={skillsIcons} />
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 blur-3xl opacity-50 animate-glow"></div>
-            </div>
-          </div>
-
-          <div className="w-2/5 max-w-4xl mx-auto py-10">
-            <Slider {...settings}>
-              {skillsData.map((group, idx) => (
-                <div key={idx} className="p-6">
-                  <div className="rounded-lg p-4">
-                    <h3 className="text-3xl font-semibold text-blue-400 mb-6">{group.category}</h3>
-                    <ul className="space-y-4">
-                      {group.skills.map((skill, index) => (
-                        <li key={index}>
-                          <div className="flex justify-between items-center">
-                            <span className="text-lg text-black">{skill.name}</span>
-                            <span className="text-black">{skill.level}%</span>
-                          </div>
-                          <div className="w-full bg-gray-700 rounded-full h-2">
-                            <div
-                              className="bg-blue-500 h-2 rounded-full"
-                              style={{ width: `${skill.level}%` }}
-                            ></div>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
+              {/* Left - Image */}
+              <div
+                className="relative w-72 h-72 md:w-80 md:h-80 group"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              >
+                <Image
+                  src="/Aboutme.jpg"
+                  alt="Akash"
+                  fill
+                  className="rounded-3xl object-cover border-4 border-gray-700 shadow-lg transform transition-transform duration-300 group-hover:scale-105"
+                />
+                {isHovered && (
+                  <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white rounded-3xl">
+                    <span className="text-lg font-semibold">Check out my skills!</span>
                   </div>
+                )}
+              </div>
+
+              {/* Right - Text */}
+              <div className="flex-1">
+                <h1 className="text-6xl font-extrabold mb-6 text-black animate-fade-in">
+                  Hi, I'm Akash! 👋
+                </h1>
+                <h2 className="text-4xl font-semibold mb-6 text-black">
+                  Full-Stack Developer
+                </h2>
+                <p className="text-lg text-black mb-6 max-w-2xl">
+                  I’m a dedicated <span className="font-semibold">Full-Stack Developer</span> who thrives on crafting reliable, scalable, and user-centric web applications. My work focuses on transforming creative ideas into interactive digital experiences through clean code and thoughtful design.
+                </p>
+                <p className="text-lg text-black mb-6 max-w-2xl">
+                  I specialize in blending functionality with aesthetics, aiming to deliver solutions that aren't just functional but also delightful to use. Whether it's frontend magic or backend logic, I enjoy building systems that empower users and businesses.
+                </p>
+
+                {/* Social Icons */}
+                <div className="flex space-x-6 mt-8">
+                  {[
+                    { href: "https://www.linkedin.com/in/akash-s-", icon: "/linkedin.png", alt: "LinkedIn" },
+                    { href: "https://github.com/Akash-Developer-hub", icon: "/github.png", alt: "GitHub" },
+                    { href: "https://instagram.com", icon: "/instagram.png", alt: "Instagram" },
+                  ].map((social, index) => (
+                    <button
+                      key={index}
+                      onClick={() => window.open(social.href, "_blank")}
+                      className="p-2 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:scale-110 cursor-pointer"
+                    >
+                      <img src={social.icon} alt={social.alt} width={44} height={28} className="cursor-pointer" />
+                    </button>
+                  ))}
                 </div>
-              ))}
-            </Slider>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Sliding Panel for Skill Details */}
-      {activeSkill && (
-        <motion.div
-          initial={{ x: '100%' }}
-          animate={{ x: 0 }}
-          exit={{ x: '100%' }}
-          transition={{ duration: 0.5 }}
-          className="fixed top-0 right-0 h-full w-80 bg-[#e9e8e852] p-4 shadow-lg z-30 transform overflow-y-auto"
-        >
-          <button
-            onClick={() => setActiveSkill(null)}
-            className="absolute top-4 right-4 text-black hover:text-black"
+        <HeroMockupOverlay />
+
+        {/* About Me Section */}
+        <div id="about" className="relative z-10 text-center mt-20 p-8 w-full max-w-6xl bg-white/50 mx-auto rounded-lg shadow-xl backdrop-blur-2xl border border-gray-700 transform transition-all duration-500 hover:shadow-xl hover:scale-102">
+          <h2 className="text-5xl font-extrabold mb-8 text-black relative inline-block">
+            About Me
+            <span className="absolute -bottom-2 left-1/2 w-32 h-1.5 bg-black transform -translate-x-1/2 rounded-full"></span>
+          </h2>
+
+          <div className="flex flex-col md:flex-row items-center justify-center gap-12">
+            {/* Image */}
+            <div className="relative w-64 h-64 md:w-72 md:h-72 rounded-full shadow-xl overflow-hidden border-4 border-gray-700 transform transition-all hover:scale-110 hover:shadow-xl hover:border-blue-500 animate-pulse">
+              <Image
+                src="/Aboutme.jpg"
+                alt="Akash"
+                layout="fill"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-1000"></div>
+            </div>
+
+            {/* Text */}
+            <div className="text-left max-w-2xl space-y-6 animate-fade-in">
+              <p className="text-black text-lg leading-relaxed">
+                Hey, I&apos;m <span className="font-semibold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">Akash</span> — not just a developer but an explorer of technology. My journey revolves around constantly expanding my horizons in the tech world. From tinkering with AI models to diving deep into open-source communities, I'm always on the lookout for the next innovation.
+              </p>
+              <p className="text-black">
+                When I’m not writing code, I’m often engaging with tech communities, brainstorming creative ideas, learning emerging trends, or just geeking out over the latest in software and AI. Whether it's collaborating on open-source projects or experimenting with new technologies, I'm someone who believes that the learning never stops.
+              </p>
+
+              {/* Interests */}
+              <div className="flex flex-wrap gap-4 mt-6">
+                {[
+                  { icon: "💻", text: "Open-Source Contributor" },
+                  { icon: "🤖", text: "AI Explorer" },
+                  { icon: "🚀", text: "Tech Innovator" },
+                  { icon: "🎯", text: "Problem Solver" },
+                  { icon: "🌏", text: "Lifelong Learner" },
+                ].map((item, index) => (
+                  <span
+                    key={index}
+                    className="px-6 py-3 bg-gray-700 rounded-lg text-white flex items-center gap-3 shadow-md transition-all duration-300 hover:shadow-lg hover:scale-110"
+                    onClick={() => setActiveSkill(item.text)}
+                  >
+                    <span className="text-2xl">{item.icon}</span>
+                    <span className="font-medium">{item.text}</span>
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        {/* Skills Section */}
+        <div id="skills" className="relative z-10 text-center mt-20 p-8 w-full max-w-6xl bg-white/50 mx-auto rounded-lg shadow-xl backdrop-blur-2xl border border-gray-700 transform transition-all duration-500 hover:shadow-xl hover:scale-102">
+          <h2 className="text-5xl font-extrabold text-center mb-12 text-black relative inline-block">
+            Skills
+            <span className="absolute top-12 left-1/2 w-32 h-1.5 bg-black transform -translate-x-1/2 rounded-full"></span>
+          </h2>
+
+          <div className="flex flex-col md:flex-row items-center justify-between gap-10">
+            {/* Rotating 3D Skill Icons with Glow Effect */}
+            <div className="w-full md:w-1/2 flex items-center justify-center">
+              <div className="w-[350px] h-[350px] flex items-center justify-center relative">
+                <IconCloud images={skillsIcons} />
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 blur-3xl opacity-50 animate-glow"></div>
+              </div>
+            </div>
+
+            <div className="w-2/5 max-w-4xl mx-auto py-10">
+              <Slider {...settings}>
+                {skillsData.map((group, idx) => (
+                  <div key={idx} className="p-6">
+                    <div className="rounded-lg p-4">
+                      <h3 className="text-3xl font-semibold text-blue-400 mb-6">{group.category}</h3>
+                      <ul className="space-y-4">
+                        {group.skills.map((skill, index) => (
+                          <li key={index}>
+                            <div className="flex justify-between items-center">
+                              <span className="text-lg text-black">{skill.name}</span>
+                              <span className="text-black">{skill.level}%</span>
+                            </div>
+                            <div className="w-full bg-gray-700 rounded-full h-2">
+                              <div
+                                className="bg-blue-500 h-2 rounded-full"
+                                style={{ width: `${skill.level}%` }}
+                              ></div>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                ))}
+              </Slider>
+            </div>
+          </div>
+        </div>
+
+        {/* Sliding Panel for Skill Details */}
+        {activeSkill && (
+          <motion.div
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ duration: 0.5 }}
+            className="fixed top-0 right-0 h-full w-80 bg-[#e9e8e852] p-4 shadow-lg z-30 transform overflow-y-auto"
           >
-            &times;
-          </button>
-          <h3 className="text-2xl font-bold text-black mb-4 border-b-2">{activeSkill}</h3>
-          <p className="text-black">Here&apos;s more about {activeSkill}: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum.</p>
-        </motion.div>
-      )}
+            <button
+              onClick={() => setActiveSkill(null)}
+              className="absolute top-4 right-4 text-black hover:text-black"
+            >
+              &times;
+            </button>
+            <h3 className="text-2xl font-bold text-black mb-4 border-b-2">{activeSkill}</h3>
+            <p className="text-black">Here&apos;s more about {activeSkill}: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum.</p>
+          </motion.div>
+        )}
 
-      {/* Contact Section */}
-      <div id="contact" className="relative z-10 text-center mt-20 p-8 max-w-4xl mx-auto rounded-lg shadow-xl">
-        <h2 className="text-4xl font-bold mb-6 text-black">Contact</h2>
-        <p className="text-black">
-          Feel free to reach out to me via email at <a href="mailto:akash@example.com" className="text-blue-500 hover:underline">akashsivakumar485@gmail.com</a> or connect with me on social media.
-        </p>
-      </div>
+        {/* Contact Section */}
+        <div id="contact" className="relative z-10 text-center p-8 max-w-4xl mx-auto rounded-lg">
+          <ContactSection />
+        </div>
+      </TracingBeam>
     </div>
+
   );
 };
 
