@@ -1,26 +1,15 @@
-"use client"; // Add this directive at the top of your file
+"use client";
 
 import Image from 'next/image';
 import { AnimatedGridPattern } from '@/component/InteractiveGridPatternDemo';
 import { IconCloud } from '@/components/magicui/icon-cloud';
 import { motion } from "framer-motion";
-import { loadOptions } from "@tsparticles/engine";
 import { useState } from 'react';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link as ScrollLink } from 'react-scroll';
 import { HeroMockupOverlay } from '@/component/MockupBackground';
-
-const BottomGradient = () => {
-  return (
-    <>
-      <span className="absolute inset-x-0 -bottom-px block h-px w-full bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-0 transition duration-500 group-hover/btn:opacity-100" />
-      <span className="absolute inset-x-10 -bottom-px mx-auto block h-px w-1/2 bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-0 blur-sm transition duration-500 group-hover/btn:opacity-100" />
-    </>
-  );
-};
-
 import { ReactNode } from 'react';
 import CustomCursor from '@/component/CustomCursor';
 import { TracingBeam } from '@/component/TracingBeam';
@@ -46,7 +35,7 @@ const ContactSection = () => {
     message: '',
   });
 
-  const handleChange = (e: { target: { id: any; value: any; }; }) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     setFormData(prevState => ({
       ...prevState,
@@ -54,7 +43,7 @@ const ContactSection = () => {
     }));
   };
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
     // Handle form submission logic here
@@ -124,6 +113,14 @@ const ContactSection = () => {
   );
 };
 
+const BottomGradient = () => {
+  return (
+    <>
+      <span className="absolute inset-x-0 -bottom-px block h-px w-full bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-0 transition duration-500 group-hover/btn:opacity-100" />
+      <span className="absolute inset-x-10 -bottom-px mx-auto block h-px w-1/2 bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-0 blur-sm transition duration-500 group-hover/btn:opacity-100" />
+    </>
+  );
+};
 
 const skillsIcons = [
   '/icons/icon(1).svg',
@@ -144,7 +141,6 @@ const skillsIcons = [
   '/icons/icon(16).svg',
   '/icons/icon(17).svg',
   '/icons/icon(18).svg',
-  // Add more image paths as needed
 ];
 
 const skillsData = [
@@ -190,16 +186,13 @@ const HomePage: React.FC = () => {
   };
 
   return (
-
     <div className="relative flex flex-col items-center justify-center min-h-screen text-black">
       <CustomCursor />
       <TracingBeam>
-        {/* Background Pattern with Background Color */}
         <div className="absolute inset-0 z-0">
           <AnimatedGridPattern />
         </div>
 
-        {/* Navigation Bar */}
         <nav className="fixed top-0 w-full backdrop-blur-md shadow-sm p-4 z-50 rounded-b-lg border-b border-black">
           <ul className="flex justify-center space-x-8">
             <li><ScrollLink to="hero" smooth={true} duration={500} className="text-black hover:text-blue-500 transition-colors duration-300 cursor-pointer">Home</ScrollLink></li>
@@ -210,10 +203,7 @@ const HomePage: React.FC = () => {
         </nav>
         <div className="flex items-center justify-center min-h-screen">
           <div className="relative z-20 w-full max-w-6xl mx-auto p-10 rounded-lg shadow-xl bg-white/50 backdrop-blur-2xl border border-gray-700 transform transition-all duration-500 hover:shadow-xl hover:scale-[1.009]">
-
             <div id="hero" className="flex flex-col md:flex-row items-center gap-10">
-
-              {/* Left - Image */}
               <div
                 className="relative w-72 h-72 md:w-80 md:h-80 group"
                 onMouseEnter={() => setIsHovered(true)}
@@ -232,10 +222,9 @@ const HomePage: React.FC = () => {
                 )}
               </div>
 
-              {/* Right - Text */}
               <div className="flex-1">
                 <h1 className="text-6xl font-extrabold mb-6 text-black animate-fade-in">
-                  Hi, I'm Akash! 👋
+                  Hi, I&apos;m Akash! 👋
                 </h1>
                 <h2 className="text-4xl font-semibold mb-6 text-black">
                   Full-Stack Developer
@@ -244,10 +233,9 @@ const HomePage: React.FC = () => {
                   I’m a dedicated <span className="font-semibold">Full-Stack Developer</span> who thrives on crafting reliable, scalable, and user-centric web applications. My work focuses on transforming creative ideas into interactive digital experiences through clean code and thoughtful design.
                 </p>
                 <p className="text-lg text-black mb-6 max-w-2xl">
-                  I specialize in blending functionality with aesthetics, aiming to deliver solutions that aren't just functional but also delightful to use. Whether it's frontend magic or backend logic, I enjoy building systems that empower users and businesses.
+                  I specialize in blending functionality with aesthetics, aiming to deliver solutions that aren&apos;t just functional but also delightful to use. Whether it&apos;s frontend magic or backend logic, I enjoy building systems that empower users and businesses.
                 </p>
 
-                {/* Social Icons */}
                 <div className="flex space-x-6 mt-8">
                   {[
                     { href: "https://www.linkedin.com/in/akash-s-", icon: "/linkedin.png", alt: "LinkedIn" },
@@ -259,7 +247,7 @@ const HomePage: React.FC = () => {
                       onClick={() => window.open(social.href, "_blank")}
                       className="p-2 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:scale-110 cursor-pointer"
                     >
-                      <img src={social.icon} alt={social.alt} width={44} height={28} className="cursor-pointer" />
+                      <Image src={social.icon} alt={social.alt} width={44} height={28} />
                     </button>
                   ))}
                 </div>
@@ -270,7 +258,6 @@ const HomePage: React.FC = () => {
 
         <HeroMockupOverlay />
 
-        {/* About Me Section */}
         <div id="about" className="relative z-10 text-center mt-20 p-8 w-full max-w-6xl bg-white/50 mx-auto rounded-lg shadow-xl backdrop-blur-2xl border border-gray-700 transform transition-all duration-500 hover:shadow-xl hover:scale-102">
           <h2 className="text-5xl font-extrabold mb-8 text-black relative inline-block">
             About Me
@@ -278,7 +265,6 @@ const HomePage: React.FC = () => {
           </h2>
 
           <div className="flex flex-col md:flex-row items-center justify-center gap-12">
-            {/* Image */}
             <div className="relative w-64 h-64 md:w-72 md:h-72 rounded-full shadow-xl overflow-hidden border-4 border-gray-700 transform transition-all hover:scale-110 hover:shadow-xl hover:border-blue-500 animate-pulse">
               <Image
                 src="/Aboutme.jpg"
@@ -289,16 +275,14 @@ const HomePage: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-1000"></div>
             </div>
 
-            {/* Text */}
             <div className="text-left max-w-2xl space-y-6 animate-fade-in">
               <p className="text-black text-lg leading-relaxed">
-                Hey, I&apos;m <span className="font-semibold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">Akash</span> — not just a developer but an explorer of technology. My journey revolves around constantly expanding my horizons in the tech world. From tinkering with AI models to diving deep into open-source communities, I'm always on the lookout for the next innovation.
+                Hey, I&apos;m <span className="font-semibold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">Akash</span> — not just a developer but an explorer of technology. My journey revolves around constantly expanding my horizons in the tech world. From tinkering with AI models to diving deep into open-source communities, I&apos;m always on the lookout for the next innovation.
               </p>
               <p className="text-black">
-                When I’m not writing code, I’m often engaging with tech communities, brainstorming creative ideas, learning emerging trends, or just geeking out over the latest in software and AI. Whether it's collaborating on open-source projects or experimenting with new technologies, I'm someone who believes that the learning never stops.
+                When I’m not writing code, I’m often engaging with tech communities, brainstorming creative ideas, learning emerging trends, or just geeking out over the latest in software and AI. Whether it&apos;s collaborating on open-source projects or experimenting with new technologies, I&apos;m someone who believes that the learning never stops.
               </p>
 
-              {/* Interests */}
               <div className="flex flex-wrap gap-4 mt-6">
                 {[
                   { icon: "💻", text: "Open-Source Contributor" },
@@ -321,8 +305,6 @@ const HomePage: React.FC = () => {
           </div>
         </div>
 
-
-        {/* Skills Section */}
         <div id="skills" className="relative z-10 text-center mt-20 p-8 w-full max-w-6xl bg-white/50 mx-auto rounded-lg shadow-xl backdrop-blur-2xl border border-gray-700 transform transition-all duration-500 hover:shadow-xl hover:scale-102">
           <h2 className="text-5xl font-extrabold text-center mb-12 text-black relative inline-block">
             Skills
@@ -330,7 +312,6 @@ const HomePage: React.FC = () => {
           </h2>
 
           <div className="flex flex-col md:flex-row items-center justify-between gap-10">
-            {/* Rotating 3D Skill Icons with Glow Effect */}
             <div className="w-full md:w-1/2 flex items-center justify-center">
               <div className="w-[350px] h-[350px] flex items-center justify-center relative">
                 <IconCloud images={skillsIcons} />
@@ -368,7 +349,6 @@ const HomePage: React.FC = () => {
           </div>
         </div>
 
-        {/* Sliding Panel for Skill Details */}
         {activeSkill && (
           <motion.div
             initial={{ x: '100%' }}
@@ -388,13 +368,11 @@ const HomePage: React.FC = () => {
           </motion.div>
         )}
 
-        {/* Contact Section */}
         <div id="contact" className="relative z-10 text-center p-8 max-w-4xl mx-auto rounded-lg">
           <ContactSection />
         </div>
       </TracingBeam>
     </div>
-
   );
 };
 
