@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useState, useEffect } from "react";
 
 const CustomCursor = () => {
     const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -17,23 +16,14 @@ const CustomCursor = () => {
     useEffect(() => {
         const updateMousePosition = (e: MouseEvent) => {
             setPosition({ x: e.clientX, y: e.clientY });
-    useEffect(() => {
-        const updateMousePosition = (e: MouseEvent) => {
-            setPosition({ x: e.clientX, y: e.clientY });
 
-            const target = e.target as HTMLElement;
-            if (!target) return;
             const target = e.target as HTMLElement;
             if (!target) return;
 
             // Priority: custom check > computed style fallback
             const tag = target.tagName.toLowerCase();
             const role = target.getAttribute("role");
-            // Priority: custom check > computed style fallback
-            const tag = target.tagName.toLowerCase();
-            const role = target.getAttribute("role");
 
-            let computedCursor = "";
             let computedCursor = "";
 
             if (
@@ -70,20 +60,12 @@ const CustomCursor = () => {
 
         document.body.style.cursor = "none"; // Hide system cursor
         window.addEventListener("mousemove", updateMousePosition);
-        document.body.style.cursor = "none"; // Hide system cursor
-        window.addEventListener("mousemove", updateMousePosition);
 
         return () => {
             document.body.style.cursor = ""; // Reset on cleanup
             window.removeEventListener("mousemove", updateMousePosition);
         };
     }, []);
-        return () => {
-            document.body.style.cursor = ""; // Reset on cleanup
-            window.removeEventListener("mousemove", updateMousePosition);
-        };
-    }, []);
-
     const getCursorSVG = () => {
         const commonProps = {
             stroke: isDark ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)",
@@ -170,36 +152,6 @@ const CustomCursor = () => {
             </svg>
         </div>
     );
-};
-    return (
-        <div
-            style={{
-                position: "fixed",
-                left: `${position.x}px`,
-                top: `${position.y}px`,
-                transform: "translate(-50%, -50%)",
-                pointerEvents: "none",
-                zIndex: 9999,
-                width: "24px",
-                height: "24px",
-                filter: "drop-shadow(0 0 2px rgba(255, 255, 255, 0.5))",
-                transition: "transform 0.1s ease-out"
-            }}
-        >
-            <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                style={{
-                    transition: "all 0.15s ease-out",
-                    transform: cursorType === "pointer" ? "scale(1.2)" : "scale(1)"
-                }}
-            >
-                {getCursorSVG()}
-            </svg>
-        </div>
-    );
-};
+}
 
 export default CustomCursor;
