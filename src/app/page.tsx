@@ -1,10 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from 'next/image';
-import { AnimatedGridPattern } from '@/component/InteractiveGridPatternDemo';
 import { IconCloud } from '@/components/magicui/icon-cloud';
 import { motion } from "framer-motion";
-import { loadOptions } from "@tsparticles/engine";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -303,16 +301,16 @@ const HomePage = () => {
               </div>
               <div className="flex-1">
                 <h1 className="text-6xl font-extrabold mb-6 text-black dark:text-white animate-fade-in">
-                  Hi, I'm Akash! 👋
+                  Hi, I&apos;m Akash! 👋
                 </h1>
                 <h2 className="text-4xl font-semibold mb-6 text-black dark:text-white">
                   Full-Stack Developer
                 </h2>
                 <p className="text-lg text-black dark:text-white mb-6 max-w-2xl">
-                  I’m a dedicated <span className="font-semibold">Full-Stack Developer</span> who thrives on crafting reliable, scalable, and user-centric web applications. My work focuses on transforming creative ideas into interactive digital experiences through clean code and thoughtful design.
+                  I&apos;m a dedicated <span className="font-semibold">Full-Stack Developer</span> who thrives on crafting reliable, scalable, and user-centric web applications. My work focuses on transforming creative ideas into interactive digital experiences through clean code and thoughtful design.
                 </p>
                 <p className="text-lg text-black dark:text-white mb-6 max-w-2xl">
-                  I specialize in blending functionality with aesthetics, aiming to deliver solutions that aren't just functional but also delightful to use. Whether it's frontend magic or backend logic, I enjoy building systems that empower users and businesses.
+                  I specialize in blending functionality with aesthetics, aiming to deliver solutions that aren&apos;t just functional but also delightful to use. Whether it&apos;s frontend magic or backend logic, I enjoy building systems that empower users and businesses.
                 </p>
                 <div className="flex space-x-6 mt-8">
                   {[
@@ -351,10 +349,10 @@ const HomePage = () => {
             </div>
             <div className="text-left max-w-2xl space-y-6 animate-fade-in">
               <p className="text-black dark:text-white text-lg leading-relaxed">
-                Hey, I&apos;m <span className="font-semibold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">Akash</span> — not just a developer but an explorer of technology. My journey revolves around constantly expanding my horizons in the tech world. From tinkering with AI models to diving deep into open-source communities, I'm always on the lookout for the next innovation.
+                Hey, I&apos;m <span className="font-semibold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">Akash</span> — not just a developer but an explorer of technology. My journey revolves around constantly expanding my horizons in the tech world. From tinkering with AI models to diving deep into open-source communities, I&apos;m always on the lookout for the next innovation.
               </p>
               <p className="text-black dark:text-white">
-                When I’m not writing code, I’m often engaging with tech communities, brainstorming creative ideas, learning emerging trends, or just geeking out over the latest in software and AI. Whether it's collaborating on open-source projects or experimenting with new technologies, I'm someone who believes that the learning never stops.
+                When I&apos;m not writing code, I&apos;m often engaging with tech communities, brainstorming creative ideas, learning emerging trends, or just geeking out over the latest in software and AI. Whether it&apos;s collaborating on open-source projects or experimenting with new technologies, I&apos;m someone who believes that the learning never stops.
               </p>
               <div className="flex flex-wrap gap-4 mt-6">
                 {[

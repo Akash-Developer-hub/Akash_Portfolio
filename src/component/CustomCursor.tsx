@@ -67,11 +67,6 @@ const CustomCursor = () => {
         };
     }, []);
     const getCursorSVG = () => {
-        const commonProps = {
-            stroke: isDark ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)",
-            strokeWidth: "1.5",
-            fill: isDark ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)"
-        };
 
         switch (cursorType) {
             case "pointer":
