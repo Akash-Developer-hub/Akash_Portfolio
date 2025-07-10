@@ -64,7 +64,7 @@ const ContactSection = () => {
     message: '',
   });
 
-  const handleChange = (e: { target: { id: any; value: any; }; }) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     setFormData(prevState => ({
       ...prevState,
@@ -72,7 +72,7 @@ const ContactSection = () => {
     }));
   };
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
   };
@@ -325,7 +325,7 @@ const HomePage = () => {
                       onClick={() => window.open(social.href, "_blank")}
                       className="p-2 bg-white dark:bg-gray-700 rounded-full shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:scale-110 cursor-pointer"
                     >
-                      <img src={social.icon} alt={social.alt} width={44} height={28} className="cursor-pointer" />
+                      <Image src={social.icon} alt={social.alt} width={44} height={28} />
                     </button>
                   ))}
                 </div>

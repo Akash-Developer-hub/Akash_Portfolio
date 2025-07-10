@@ -1,11 +1,6 @@
 import Image from "next/image";
 import React, { useRef } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-} from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
 
 const images = [
   { src: "/Aboutme.jpg", title: "About Me" },
@@ -52,19 +47,19 @@ export const HeroMockupOverlay = () => {
     >
       <motion.div
         style={{ rotateZ }}
-        className="absolute bottom-20 left-0 right-0 space-y-32 px-10" // Increased space-y-32
+        className="absolute bottom-20 left-0 right-0 space-y-32 px-10"
       >
-        <motion.div className="flex justify-start gap-24 pl-20"> {/* Increased gap-24 */}
+        <motion.div className="flex justify-start gap-24 pl-20">
           {row1.map((item, i) => (
             <ImageCard key={i} item={item} translate={translateX} />
           ))}
         </motion.div>
-        <motion.div className="flex justify-start flex-row-reverse gap-24 pl-32"> {/* Increased gap-24 */}
+        <motion.div className="flex justify-start flex-row-reverse gap-24 pl-32">
           {row2.map((item, i) => (
             <ImageCard key={i} item={item} translate={translateXReverse} />
           ))}
         </motion.div>
-        <motion.div className="flex justify-start gap-24 pl-16"> {/* Increased gap-24 */}
+        <motion.div className="flex justify-start gap-24 pl-16">
           {row3.map((item, i) => (
             <ImageCard key={i} item={item} translate={translateX} />
           ))}
@@ -79,7 +74,7 @@ const ImageCard = ({
   translate,
 }: {
   item: { src: string; title: string };
-  translate: any;
+  translate: MotionValue<number>;
 }) => {
   return (
     <motion.div
