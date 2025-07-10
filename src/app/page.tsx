@@ -1,16 +1,38 @@
-"use client"; // Add this directive at the top of your file
-
+"use client";
+import React, { useState, useEffect } from "react";
 import Image from 'next/image';
 import { AnimatedGridPattern } from '@/component/InteractiveGridPatternDemo';
 import { IconCloud } from '@/components/magicui/icon-cloud';
 import { motion } from "framer-motion";
 import { loadOptions } from "@tsparticles/engine";
-import { useState } from 'react';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link as ScrollLink } from 'react-scroll';
 import { HeroMockupOverlay } from '@/component/MockupBackground';
+import { Menu, X, Moon, Sun } from "lucide-react";
+import CustomCursor from '@/component/CustomCursor';
+import { TracingBeam } from '@/component/TracingBeam';
+import { LampDemo } from "@/component/LampDemo"; 
+
+const useDarkMode = () => {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("theme") === "dark";
+    setIsDark(stored);
+    document.documentElement.classList.toggle("dark", stored);
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = !isDark;
+    setIsDark(newTheme);
+    document.documentElement.classList.toggle("dark", newTheme);
+    localStorage.setItem("theme", newTheme ? "dark" : "light");
+  };
+
+  return { isDark, toggleTheme };
+};
 
 const BottomGradient = () => {
   return (
@@ -21,14 +43,10 @@ const BottomGradient = () => {
   );
 };
 
-import { ReactNode } from 'react';
-import CustomCursor from '@/component/CustomCursor';
-import { TracingBeam } from '@/component/TracingBeam';
-
-interface LabelInputContainerProps {
-  children: ReactNode;
+type LabelInputContainerProps = {
+  children: React.ReactNode;
   className?: string;
-}
+};
 
 const LabelInputContainer = ({ children, className }: LabelInputContainerProps) => {
   return (
@@ -57,59 +75,58 @@ const ContactSection = () => {
   const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    // Handle form submission logic here
   };
 
   return (
-    <div id="contact" className="relative z-10 text-center mt-20 p-8 max-w-4xl mx-auto rounded-lg shadow-xl bg-white/50 backdrop-blur-2xl border border-gray-700">
-      <h2 className="text-4xl font-bold mb-6 text-black">Contact</h2>
-      <p className="text-black mb-8">
+    <div id="contact" className="relative z-10 text-center mt-20 p-8 max-w-4xl mx-auto rounded-lg shadow-xl bg-white/50 dark:bg-black/50 backdrop-blur-2xl border border-gray-700">
+      <h2 className="text-4xl font-bold mb-6 text-black dark:text-white">Contact</h2>
+      <p className="text-black dark:text-white mb-8">
         Feel free to reach out to me via the form below.
       </p>
       <form className="my-8" onSubmit={handleSubmit}>
         <div className="mb-4 flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2">
           <LabelInputContainer>
-            <label htmlFor="firstname" className="block text-left text-sm font-medium text-neutral-600">First Name</label>
+            <label htmlFor="firstname" className="block text-left text-sm font-medium text-neutral-600 dark:text-neutral-300">First Name</label>
             <input
               id="firstname"
               type="text"
               value={formData.firstname}
               onChange={handleChange}
               placeholder="Your first name"
-              className="shadow-input w-full rounded-md border border-gray-300 p-2"
+              className="shadow-input w-full rounded-md border border-gray-300 p-2 dark:bg-gray-700 dark:text-white"
             />
           </LabelInputContainer>
           <LabelInputContainer>
-            <label htmlFor="lastname" className="block text-left text-sm font-medium text-neutral-600">Last Name</label>
+            <label htmlFor="lastname" className="block text-left text-sm font-medium text-neutral-600 dark:text-neutral-300">Last Name</label>
             <input
               id="lastname"
               type="text"
               value={formData.lastname}
               onChange={handleChange}
               placeholder="Your last name"
-              className="shadow-input w-full rounded-md border border-gray-300 p-2"
+              className="shadow-input w-full rounded-md border border-gray-300 p-2 dark:bg-gray-700 dark:text-white"
             />
           </LabelInputContainer>
         </div>
         <LabelInputContainer className="mb-4">
-          <label htmlFor="email" className="block text-left text-sm font-medium text-neutral-600">Email Address</label>
+          <label htmlFor="email" className="block text-left text-sm font-medium text-neutral-600 dark:text-neutral-300">Email Address</label>
           <input
             id="email"
             type="email"
             value={formData.email}
             onChange={handleChange}
             placeholder="Your email"
-            className="shadow-input w-full rounded-md border border-gray-300 p-2"
+            className="shadow-input w-full rounded-md border border-gray-300 p-2 dark:bg-gray-700 dark:text-white"
           />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
-          <label htmlFor="message" className="block text-left text-sm font-medium text-neutral-600">Message</label>
+          <label htmlFor="message" className="block text-left text-sm font-medium text-neutral-600 dark:text-neutral-300">Message</label>
           <textarea
             id="message"
             value={formData.message}
             onChange={handleChange}
             placeholder="Your message"
-            className="shadow-input w-full rounded-md border border-gray-300 p-2"
+            className="shadow-input w-full rounded-md border border-gray-300 p-2 dark:bg-gray-700 dark:text-white"
           />
         </LabelInputContainer>
         <button
@@ -123,7 +140,6 @@ const ContactSection = () => {
     </div>
   );
 };
-
 
 const skillsIcons = [
   '/icons/icon(1).svg',
@@ -144,7 +160,6 @@ const skillsIcons = [
   '/icons/icon(16).svg',
   '/icons/icon(17).svg',
   '/icons/icon(18).svg',
-  // Add more image paths as needed
 ];
 
 const skillsData = [
@@ -175,9 +190,11 @@ const skillsData = [
   },
 ];
 
-const HomePage: React.FC = () => {
+const HomePage = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [activeSkill, setActiveSkill] = useState<string | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isDark, toggleTheme } = useDarkMode();
 
   const settings = {
     dots: true,
@@ -190,30 +207,83 @@ const HomePage: React.FC = () => {
   };
 
   return (
-
-    <div className="relative flex flex-col items-center justify-center min-h-screen text-black">
+    <div className={`relative flex flex-col items-center justify-center min-h-screen ${isDark ? 'dark' : ''}`}>
       <CustomCursor />
       <TracingBeam>
-        {/* Background Pattern with Background Color */}
         <div className="absolute inset-0 z-0">
-          <AnimatedGridPattern />
+          {/* <AnimatedGridPattern /> */}
         </div>
-
-        {/* Navigation Bar */}
-        <nav className="fixed top-0 w-full backdrop-blur-md shadow-sm p-4 z-50 rounded-b-lg border-b border-black">
-          <ul className="flex justify-center space-x-8">
-            <li><ScrollLink to="hero" smooth={true} duration={500} className="text-black hover:text-blue-500 transition-colors duration-300 cursor-pointer">Home</ScrollLink></li>
-            <li><ScrollLink to="about" smooth={true} duration={500} className="text-black hover:text-blue-500 transition-colors duration-300 cursor-pointer">About</ScrollLink></li>
-            <li><ScrollLink to="skills" smooth={true} duration={500} className="text-black hover:text-blue-500 transition-colors duration-300 cursor-pointer">Skills</ScrollLink></li>
-            <li><ScrollLink to="contact" smooth={true} duration={500} className="text-black hover:text-blue-500 transition-colors duration-300 cursor-pointer">Contact</ScrollLink></li>
-          </ul>
+        <nav className="fixed top-0 left-0 w-full z-50 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-black dark:border-white shadow-sm">
+          <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div className="text-xl font-bold text-black dark:text-white">Akash.dev</div>
+            <ul className="hidden md:flex space-x-8 items-center">
+              {["hero", "about", "skills", "contact"].map((id) => (
+                <li key={id}>
+                  <ScrollLink
+                    to={id}
+                    smooth={true}
+                    duration={500}
+                    className="cursor-pointer text-black dark:text-white hover:text-blue-500 transition-colors"
+                  >
+                    {id.charAt(0).toUpperCase() + id.slice(1)}
+                  </ScrollLink>
+                </li>
+              ))}
+              <li>
+                <button
+                  onClick={toggleTheme}
+                  className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-black dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+                >
+                  {isDark ? <Sun size={20} /> : <Moon size={20} />}
+                </button>
+              </li>
+            </ul>
+            <div className="md:hidden">
+              <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                {isMenuOpen ? (
+                  <X className="w-6 h-6 text-black dark:text-white" />
+                ) : (
+                  <Menu className="w-6 h-6 text-black dark:text-white" />
+                )}
+              </button>
+            </div>
+          </div>
+          {isMenuOpen && (
+            <div className="md:hidden px-4 pb-4">
+              <ul className="flex flex-col space-y-4 bg-white/90 dark:bg-black/90 rounded-lg shadow-md p-4">
+                {["hero", "about", "skills", "contact"].map((id) => (
+                  <li key={id}>
+                    <ScrollLink
+                      to={id}
+                      smooth={true}
+                      duration={500}
+                      className="block text-black dark:text-white hover:text-blue-500"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {id.charAt(0).toUpperCase() + id.slice(1)}
+                    </ScrollLink>
+                  </li>
+                ))}
+                <li>
+                  <button
+                    onClick={toggleTheme}
+                    className="w-full flex justify-center p-2 rounded bg-gray-200 dark:bg-gray-700 text-black dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+                  >
+                    {isDark ? <Sun size={20} /> : <Moon size={20} />}
+                  </button>
+                </li>
+              </ul>
+            </div>
+          )}
         </nav>
         <div className="flex items-center justify-center min-h-screen">
-          <div className="relative z-20 w-full max-w-6xl mx-auto p-10 rounded-lg shadow-xl bg-white/50 backdrop-blur-2xl border border-gray-700 transform transition-all duration-500 hover:shadow-xl hover:scale-[1.009]">
-
+          <div className="relative z-20 w-full max-w-6xl mx-auto p-10 rounded-lg shadow-xl bg-white/50 dark:bg-black/50 backdrop-blur-2xl border border-gray-700 transform transition-all duration-500 hover:shadow-xl hover:scale-[1.009]">
+            {isDark && (
+              <div className="absolute inset-0 flex items-center justify-center z-200">
+                <LampDemo />
+              </div>
+            )}
             <div id="hero" className="flex flex-col md:flex-row items-center gap-10">
-
-              {/* Left - Image */}
               <div
                 className="relative w-72 h-72 md:w-80 md:h-80 group"
                 onMouseEnter={() => setIsHovered(true)}
@@ -231,23 +301,19 @@ const HomePage: React.FC = () => {
                   </div>
                 )}
               </div>
-
-              {/* Right - Text */}
               <div className="flex-1">
-                <h1 className="text-6xl font-extrabold mb-6 text-black animate-fade-in">
+                <h1 className="text-6xl font-extrabold mb-6 text-black dark:text-white animate-fade-in">
                   Hi, I'm Akash! 👋
                 </h1>
-                <h2 className="text-4xl font-semibold mb-6 text-black">
+                <h2 className="text-4xl font-semibold mb-6 text-black dark:text-white">
                   Full-Stack Developer
                 </h2>
-                <p className="text-lg text-black mb-6 max-w-2xl">
+                <p className="text-lg text-black dark:text-white mb-6 max-w-2xl">
                   I’m a dedicated <span className="font-semibold">Full-Stack Developer</span> who thrives on crafting reliable, scalable, and user-centric web applications. My work focuses on transforming creative ideas into interactive digital experiences through clean code and thoughtful design.
                 </p>
-                <p className="text-lg text-black mb-6 max-w-2xl">
+                <p className="text-lg text-black dark:text-white mb-6 max-w-2xl">
                   I specialize in blending functionality with aesthetics, aiming to deliver solutions that aren't just functional but also delightful to use. Whether it's frontend magic or backend logic, I enjoy building systems that empower users and businesses.
                 </p>
-
-                {/* Social Icons */}
                 <div className="flex space-x-6 mt-8">
                   {[
                     { href: "https://www.linkedin.com/in/akash-s-", icon: "/linkedin.png", alt: "LinkedIn" },
@@ -257,7 +323,7 @@ const HomePage: React.FC = () => {
                     <button
                       key={index}
                       onClick={() => window.open(social.href, "_blank")}
-                      className="p-2 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:scale-110 cursor-pointer"
+                      className="p-2 bg-white dark:bg-gray-700 rounded-full shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:scale-110 cursor-pointer"
                     >
                       <img src={social.icon} alt={social.alt} width={44} height={28} className="cursor-pointer" />
                     </button>
@@ -267,18 +333,13 @@ const HomePage: React.FC = () => {
             </div>
           </div>
         </div>
-
         <HeroMockupOverlay />
-
-        {/* About Me Section */}
-        <div id="about" className="relative z-10 text-center mt-20 p-8 w-full max-w-6xl bg-white/50 mx-auto rounded-lg shadow-xl backdrop-blur-2xl border border-gray-700 transform transition-all duration-500 hover:shadow-xl hover:scale-102">
-          <h2 className="text-5xl font-extrabold mb-8 text-black relative inline-block">
+        <div id="about" className="relative z-10 text-center mt-20 p-8 w-full max-w-6xl bg-white/50 dark:bg-black/50 mx-auto rounded-lg shadow-xl backdrop-blur-2xl border border-gray-700 transform transition-all duration-500 hover:shadow-xl hover:scale-102">
+          <h2 className="text-5xl font-extrabold mb-8 text-black dark:text-white relative inline-block">
             About Me
-            <span className="absolute -bottom-2 left-1/2 w-32 h-1.5 bg-black transform -translate-x-1/2 rounded-full"></span>
+            <span className="absolute -bottom-2 left-1/2 w-32 h-1.5 bg-black dark:bg-white transform -translate-x-1/2 rounded-full"></span>
           </h2>
-
           <div className="flex flex-col md:flex-row items-center justify-center gap-12">
-            {/* Image */}
             <div className="relative w-64 h-64 md:w-72 md:h-72 rounded-full shadow-xl overflow-hidden border-4 border-gray-700 transform transition-all hover:scale-110 hover:shadow-xl hover:border-blue-500 animate-pulse">
               <Image
                 src="/Aboutme.jpg"
@@ -288,17 +349,13 @@ const HomePage: React.FC = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-1000"></div>
             </div>
-
-            {/* Text */}
             <div className="text-left max-w-2xl space-y-6 animate-fade-in">
-              <p className="text-black text-lg leading-relaxed">
+              <p className="text-black dark:text-white text-lg leading-relaxed">
                 Hey, I&apos;m <span className="font-semibold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">Akash</span> — not just a developer but an explorer of technology. My journey revolves around constantly expanding my horizons in the tech world. From tinkering with AI models to diving deep into open-source communities, I'm always on the lookout for the next innovation.
               </p>
-              <p className="text-black">
+              <p className="text-black dark:text-white">
                 When I’m not writing code, I’m often engaging with tech communities, brainstorming creative ideas, learning emerging trends, or just geeking out over the latest in software and AI. Whether it's collaborating on open-source projects or experimenting with new technologies, I'm someone who believes that the learning never stops.
               </p>
-
-              {/* Interests */}
               <div className="flex flex-wrap gap-4 mt-6">
                 {[
                   { icon: "💻", text: "Open-Source Contributor" },
@@ -320,24 +377,18 @@ const HomePage: React.FC = () => {
             </div>
           </div>
         </div>
-
-
-        {/* Skills Section */}
-        <div id="skills" className="relative z-10 text-center mt-20 p-8 w-full max-w-6xl bg-white/50 mx-auto rounded-lg shadow-xl backdrop-blur-2xl border border-gray-700 transform transition-all duration-500 hover:shadow-xl hover:scale-102">
-          <h2 className="text-5xl font-extrabold text-center mb-12 text-black relative inline-block">
+        <div id="skills" className="relative z-10 text-center mt-20 p-8 w-full max-w-6xl bg-white/50 dark:bg-black/50 mx-auto rounded-lg shadow-xl backdrop-blur-2xl border border-gray-700 transform transition-all duration-500 hover:shadow-xl hover:scale-102">
+          <h2 className="text-5xl font-extrabold text-center mb-12 text-black dark:text-white relative inline-block">
             Skills
-            <span className="absolute top-12 left-1/2 w-32 h-1.5 bg-black transform -translate-x-1/2 rounded-full"></span>
+            <span className="absolute top-12 left-1/2 w-32 h-1.5 bg-black dark:bg-white transform -translate-x-1/2 rounded-full"></span>
           </h2>
-
           <div className="flex flex-col md:flex-row items-center justify-between gap-10">
-            {/* Rotating 3D Skill Icons with Glow Effect */}
             <div className="w-full md:w-1/2 flex items-center justify-center">
               <div className="w-[350px] h-[350px] flex items-center justify-center relative">
                 <IconCloud images={skillsIcons} />
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 blur-3xl opacity-50 animate-glow"></div>
               </div>
             </div>
-
             <div className="w-2/5 max-w-4xl mx-auto py-10">
               <Slider {...settings}>
                 {skillsData.map((group, idx) => (
@@ -348,8 +399,8 @@ const HomePage: React.FC = () => {
                         {group.skills.map((skill, index) => (
                           <li key={index}>
                             <div className="flex justify-between items-center">
-                              <span className="text-lg text-black">{skill.name}</span>
-                              <span className="text-black">{skill.level}%</span>
+                              <span className="text-lg text-black dark:text-white">{skill.name}</span>
+                              <span className="text-black dark:text-white">{skill.level}%</span>
                             </div>
                             <div className="w-full bg-gray-700 rounded-full h-2">
                               <div
@@ -367,34 +418,29 @@ const HomePage: React.FC = () => {
             </div>
           </div>
         </div>
-
-        {/* Sliding Panel for Skill Details */}
         {activeSkill && (
           <motion.div
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ duration: 0.5 }}
-            className="fixed top-0 right-0 h-full w-80 bg-[#e9e8e852] p-4 shadow-lg z-30 transform overflow-y-auto"
+            className="fixed top-0 right-0 h-full w-80 bg-[#e9e8e852] dark:bg-[#1a1a1a52] p-4 shadow-lg z-30 transform overflow-y-auto"
           >
             <button
               onClick={() => setActiveSkill(null)}
-              className="absolute top-4 right-4 text-black hover:text-black"
+              className="absolute top-4 right-4 text-black dark:text-white hover:text-black"
             >
               &times;
             </button>
-            <h3 className="text-2xl font-bold text-black mb-4 border-b-2">{activeSkill}</h3>
-            <p className="text-black">Here&apos;s more about {activeSkill}: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum.</p>
+            <h3 className="text-2xl font-bold text-black dark:text-white mb-4 border-b-2">{activeSkill}</h3>
+            <p className="text-black dark:text-white">Here&apos;s more about {activeSkill}: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum.</p>
           </motion.div>
         )}
-
-        {/* Contact Section */}
         <div id="contact" className="relative z-10 text-center p-8 max-w-4xl mx-auto rounded-lg">
           <ContactSection />
         </div>
       </TracingBeam>
     </div>
-
   );
 };
 

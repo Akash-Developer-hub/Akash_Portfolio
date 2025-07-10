@@ -102,3 +102,6 @@ body {
 a, button, input, textarea, select, [role="button"] {
   cursor: none !important;
 }
+body {
+  overflow-x: hidden;
+}
