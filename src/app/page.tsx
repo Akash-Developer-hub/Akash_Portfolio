@@ -213,7 +213,7 @@ const HomePage = () => {
         </div>
         <nav className="fixed top-0 left-0 w-full z-50 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-black dark:border-white shadow-sm">
           <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-            <div className="text-xl font-bold text-black dark:text-white">Akash.dev</div>
+            <div className="text-xl font-bold text-black dark:text-white">Akashsivakumar.tech</div>
             <ul className="hidden md:flex space-x-8 items-center">
               {["hero", "about", "skills", "contact"].map((id) => (
                 <li key={id}>
