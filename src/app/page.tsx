@@ -11,7 +11,9 @@ import { HeroMockupOverlay } from '@/component/MockupBackground';
 import { Menu, X, Moon, Sun } from "lucide-react";
 import CustomCursor from '@/component/CustomCursor';
 import { TracingBeam } from '@/component/TracingBeam';
-import { LampDemo } from "@/component/LampDemo"; 
+import { LampDemo } from "@/component/LampDemo";
+import { DraggableCardBody, DraggableCardContainer } from "@/component/DraggableCard";
+import { CertificateGallery } from "@/component/Certificates";
 
 const useDarkMode = () => {
   const [isDark, setIsDark] = useState(false);
@@ -139,52 +141,35 @@ const ContactSection = () => {
   );
 };
 
-const skillsIcons = [
-  '/icons/icon(1).svg',
-  '/icons/icon(2).svg',
-  '/icons/icon(3).svg',
-  '/icons/icon(4).svg',
-  '/icons/icon(5).svg',
-  '/icons/icon(6).svg',
-  '/icons/icon(7).svg',
-  '/icons/icon(8).svg',
-  '/icons/icon(9).svg',
-  '/icons/icon(10).svg',
-  '/icons/icon(11).svg',
-  '/icons/icon(12).svg',
-  '/icons/icon(13).svg',
-  '/icons/icon(14).svg',
-  '/icons/icon(15).svg',
-  '/icons/icon(16).svg',
-  '/icons/icon(17).svg',
-  '/icons/icon(18).svg',
+
+const skills = [
+  { name: "JavaScript", icon: "/icons/js.svg" },
+  { name: "TypeScript", icon: "/icons/ts.svg" },
+  { name: "React.js", icon: "/icons/react.svg" },
+  { name: "HTML5", icon: "/icons/html.svg" },
+  { name: "CSS3", icon: "/icons/css.svg" },
+  { name: "Next.js", icon: "/icons/next.svg" },
+  { name: "Tailwind CSS", icon: "/icons/tailwind.svg" },
+  { name: "Node.js", icon: "/icons/node.svg" },
+  { name: "Express.js", icon: "/icons/express.svg" },
+  { name: "MongoDB", icon: "/icons/mongo.svg" },
+  { name: "Git", icon: "/icons/git.svg" },
+  { name: "GitHub", icon: "/icons/github.svg" },
+  { name: "Python", icon: "/icons/python.svg" },
+  { name: "Postman", icon: "/icons/ps.svg" },
+  { name: "Figma", icon: "/icons/figma.svg" },
+  { name: "Bootstrap", icon: "/icons/bs.svg" },
+  { name: "Vercel", icon: "/icons/ver.svg" },
+  { name: "VScode", icon: "/icons/vs.svg" },
+  { name: "MySQL", icon: "/icons/mysql.svg" },
+  { name: "XAAMP", icon: "/icons/xaamp.svg" },
 ];
 
-const skillsData = [
+const certificates = [
   {
-    category: "Frontend",
-    skills: [
-      { name: "JavaScript", level: 90 },
-      { name: "TypeScript", level: 70 },
-      { name: "React.js", level: 85 },
-      { name: "Next.js", level: 75 },
-      { name: "Tailwind CSS", level: 80 },
-    ],
-  },
-  {
-    category: "Backend",
-    skills: [
-      { name: "Node.js", level: 85 },
-      { name: "Express.js", level: 70 },
-      { name: "MongoDB", level: 80 },
-    ],
-  },
-  {
-    category: "Version Control",
-    skills: [
-      { name: "Git", level: 90 },
-      { name: "GitHub", level: 85 },
-    ],
+    title: "React Mastery",
+    description: "Issued by Meta, March 2024",
+    image: "/certs/react-mastery.png",
   },
 ];
 
@@ -301,7 +286,7 @@ const HomePage = () => {
               </div>
               <div className="flex-1">
                 <h1 className="text-6xl font-extrabold mb-6 text-black dark:text-white animate-fade-in">
-                  Hi, I&apos;m Akash! 👋
+                  Hi, I&apos;m Akash!
                 </h1>
                 <h2 className="text-4xl font-semibold mb-6 text-black dark:text-white">
                   Full-Stack Developer
@@ -331,7 +316,7 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-        <HeroMockupOverlay />
+        {/* <HeroMockupOverlay /> */}
         <div id="about" className="relative z-10 text-center mt-20 p-8 w-full max-w-6xl bg-white/50 dark:bg-black/50 mx-auto rounded-lg shadow-xl backdrop-blur-2xl border border-gray-700 transform transition-all duration-500 hover:shadow-xl hover:scale-102">
           <h2 className="text-5xl font-extrabold mb-8 text-black dark:text-white relative inline-block">
             About Me
@@ -375,65 +360,37 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-        <div id="skills" className="relative z-10 text-center mt-20 p-8 w-full max-w-6xl bg-white/50 dark:bg-black/50 mx-auto rounded-lg shadow-xl backdrop-blur-2xl border border-gray-700 transform transition-all duration-500 hover:shadow-xl hover:scale-102">
-          <h2 className="text-5xl font-extrabold text-center mb-12 text-black dark:text-white relative inline-block">
+
+        <div
+          id="skills"
+          className="relative z-10 mt-20 p-8 w-full max-w-6xl mx-auto text-center bg-white/50 dark:bg-black/50 rounded-lg shadow-xl backdrop-blur-2xl border border-gray-700"
+        >
+          <h2 className="text-5xl font-extrabold mb-12 text-black dark:text-white relative inline-block">
             Skills
-            <span className="absolute top-12 left-1/2 w-32 h-1.5 bg-black dark:bg-white transform -translate-x-1/2 rounded-full"></span>
+            <span className="absolute top-12 left-1/2 w-32 h-1.5 bg-black dark:bg-white transform -translate-x-1/2 rounded-full" />
           </h2>
-          <div className="flex flex-col md:flex-row items-center justify-between gap-10">
-            <div className="w-full md:w-1/2 flex items-center justify-center">
-              <div className="w-[350px] h-[350px] flex items-center justify-center relative">
-                <IconCloud images={skillsIcons} />
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 blur-3xl opacity-50 animate-glow"></div>
-              </div>
-            </div>
-            <div className="w-2/5 max-w-4xl mx-auto py-10">
-              <Slider {...settings}>
-                {skillsData.map((group, idx) => (
-                  <div key={idx} className="p-6">
-                    <div className="rounded-lg p-4">
-                      <h3 className="text-3xl font-semibold text-blue-400 mb-6">{group.category}</h3>
-                      <ul className="space-y-4">
-                        {group.skills.map((skill, index) => (
-                          <li key={index}>
-                            <div className="flex justify-between items-center">
-                              <span className="text-lg text-black dark:text-white">{skill.name}</span>
-                              <span className="text-black dark:text-white">{skill.level}%</span>
-                            </div>
-                            <div className="w-full bg-gray-700 rounded-full h-2">
-                              <div
-                                className="bg-blue-500 h-2 rounded-full"
-                                style={{ width: `${skill.level}%` }}
-                              ></div>
-                            </div>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                ))}
-              </Slider>
-            </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 justify-items-center">
+            {skills.map((skill) => (
+              <DraggableCardBody
+                key={skill.name}
+                className="bg-white dark:bg-zinc-900 text-black dark:text-white flex flex-col items-center justify-center text-center p-6 gap-4 hover:shadow-xl border border-gray-200 dark:border-gray-700 shadow-sm"
+              >
+                <Image
+                  src={skill.icon}
+                  alt={skill.name}
+                  width={50}
+                  height={50}
+                  className="drop-shadow-md"
+                />
+                <h4 className="text-lg font-semibold">{skill.name}</h4>
+              </DraggableCardBody>
+            ))}
           </div>
         </div>
-        {activeSkill && (
-          <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ duration: 0.5 }}
-            className="fixed top-0 right-0 h-full w-80 bg-[#e9e8e852] dark:bg-[#1a1a1a52] p-4 shadow-lg z-30 transform overflow-y-auto"
-          >
-            <button
-              onClick={() => setActiveSkill(null)}
-              className="absolute top-4 right-4 text-black dark:text-white hover:text-black"
-            >
-              &times;
-            </button>
-            <h3 className="text-2xl font-bold text-black dark:text-white mb-4 border-b-2">{activeSkill}</h3>
-            <p className="text-black dark:text-white">Here&apos;s more about {activeSkill}: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum.</p>
-          </motion.div>
-        )}
+                <div id="Certificate" className="relative z-10 text-center p-8 max-w-4xl mx-auto rounded-lg">
+          {/* <CertificateGallery certificates={certificates} /> */}
+        </div>
         <div id="contact" className="relative z-10 text-center p-8 max-w-4xl mx-auto rounded-lg">
           <ContactSection />
         </div>
