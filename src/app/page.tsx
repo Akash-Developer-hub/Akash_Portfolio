@@ -1,19 +1,19 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from 'next/image';
-import { IconCloud } from '@/components/magicui/icon-cloud';
-import { motion } from "framer-motion";
-import Slider from "react-slick";
+// import { IconCloud } from '@/components/magicui/icon-cloud';
+// import { motion } from "framer-motion";
+// import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link as ScrollLink } from 'react-scroll';
-import { HeroMockupOverlay } from '@/component/MockupBackground';
+// import { HeroMockupOverlay } from '@/component/MockupBackground';
 import { Menu, X, Moon, Sun } from "lucide-react";
 import CustomCursor from '@/component/CustomCursor';
 import { TracingBeam } from '@/component/TracingBeam';
 import { LampDemo } from "@/component/LampDemo";
 import { DraggableCardBody, DraggableCardContainer } from "@/component/DraggableCard";
-import { CertificateGallery } from "@/component/Certificates";
+// import { CertificateGallery } from "@/component/Certificates";
 
 const useDarkMode = () => {
   const [isDark, setIsDark] = useState(false);

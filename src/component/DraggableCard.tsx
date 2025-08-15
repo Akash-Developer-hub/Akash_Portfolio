@@ -6,8 +6,6 @@ import {
   useMotionValue,
   useSpring,
   useTransform,
-  animate,
-  useVelocity,
   useAnimationControls,
 } from "motion/react";
 
@@ -35,7 +33,7 @@ export const DraggableCardBody = ({
   const mouseY = useMotionValue(0);
   const cardRef = useRef<HTMLDivElement>(null);
   const controls = useAnimationControls();
-  const [constraints, setConstraints] = useState({
+  const [, setConstraints] = useState({
     top: 0,
     left: 0,
     right: 0,
