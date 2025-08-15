@@ -12,7 +12,7 @@ import { Menu, X, Moon, Sun } from "lucide-react";
 import CustomCursor from '@/component/CustomCursor';
 import { TracingBeam } from '@/component/TracingBeam';
 import { LampDemo } from "@/component/LampDemo";
-import { DraggableCardBody, DraggableCardContainer } from "@/component/DraggableCard";
+import { DraggableCardBody,  } from "@/component/DraggableCard";
 // import { CertificateGallery } from "@/component/Certificates";
 
 const useDarkMode = () => {
@@ -165,29 +165,29 @@ const skills = [
   { name: "XAAMP", icon: "/icons/xaamp.svg" },
 ];
 
-const certificates = [
-  {
-    title: "React Mastery",
-    description: "Issued by Meta, March 2024",
-    image: "/certs/react-mastery.png",
-  },
-];
+// const certificates = [
+//   {
+//     title: "React Mastery",
+//     description: "Issued by Meta, March 2024",
+//     image: "/certs/react-mastery.png",
+//   },
+// ];
 
 const HomePage = () => {
   const [isHovered, setIsHovered] = useState(false);
-  const [activeSkill, setActiveSkill] = useState<string | null>(null);
+  const [, setActiveSkill] = useState<string | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isDark, toggleTheme } = useDarkMode();
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-  };
+  // const settings = {
+  //   dots: true,
+  //   infinite: true,
+  //   speed: 500,
+  //   slidesToShow: 1,
+  //   slidesToScroll: 1,
+  //   autoplay: true,
+  //   autoplaySpeed: 3000,
+  // };
 
   return (
     <div className={`relative flex flex-col items-center justify-center min-h-screen ${isDark ? 'dark' : ''}`}>
