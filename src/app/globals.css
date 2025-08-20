@@ -87,6 +87,47 @@ body {
   animation: glow 3s infinite ease-in-out;
 }
 
+@keyframes borderGlow {
+  0% {
+    background-position: 0% 50%;
+    background-size: 300% 300%;
+  }
+  25% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-border-glow {
+  background: linear-gradient(45deg, #8b5cf6, #3b82f6, #ec4899, #f59e0b, #8b5cf6);
+  background-size: 300% 300%;
+  animation: borderGlow 3s ease-in-out infinite;
+}
+
+/* Project card hover override */
+.project-card {
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  padding: 1% !important; /* Maintain aspect ratio */
+}
+
+.project-card:hover {
+  transform: scale(1.05) !important;
+}
+
+/* Force hover states to work */
+.project-card:hover .absolute {
+  opacity: 1 !important;
+}
+
 /* Hide scrollbar but allow scrolling */
 ::-webkit-scrollbar {
   width: 0px;

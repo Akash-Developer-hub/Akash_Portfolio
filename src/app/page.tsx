@@ -12,7 +12,8 @@ import { Menu, X, Moon, Sun } from "lucide-react";
 import CustomCursor from '@/component/CustomCursor';
 import { TracingBeam } from '@/component/TracingBeam';
 import { LampDemo } from "@/component/LampDemo";
-import { DraggableCardBody,  } from "@/component/DraggableCard";
+import { DraggableCardBody, } from "@/component/DraggableCard";
+import { ProjectShowcase } from "@/component/ProjectShowcase";
 // import { CertificateGallery } from "@/component/Certificates";
 
 const useDarkMode = () => {
@@ -167,7 +168,22 @@ const skills = [
 
 // const certificates = [
 //   {
-//     title: "React Mastery",
+//     title: "React",
+//     description: "Issued by Meta, March 2024",
+//     image: "./DataBricks.png",
+//   },
+//   {
+//     title: "Postman",
+//     description: "Issued by Meta, March 2024",
+//     image: "/certs/react-mastery.png",
+//   },
+//   {
+//     title: "Microsoft",
+//     description: "Issued by Meta, March 2024",
+//     image: "/certs/react-mastery.png",
+//   },
+//   {
+//     title: "Data bricks",
 //     description: "Issued by Meta, March 2024",
 //     image: "/certs/react-mastery.png",
 //   },
@@ -200,7 +216,7 @@ const HomePage = () => {
           <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
             <div className="text-xl font-bold text-black dark:text-white">Akashsivakumar.tech</div>
             <ul className="hidden md:flex space-x-8 items-center">
-              {["hero", "about", "skills", "contact"].map((id) => (
+              {["hero", "about", "skills", "projects", "contact"].map((id) => (
                 <li key={id}>
                   <ScrollLink
                     to={id}
@@ -234,7 +250,7 @@ const HomePage = () => {
           {isMenuOpen && (
             <div className="md:hidden px-4 pb-4">
               <ul className="flex flex-col space-y-4 bg-white/90 dark:bg-black/90 rounded-lg shadow-md p-4">
-                {["hero", "about", "skills", "contact"].map((id) => (
+                {["hero", "about", "skills", "projects", "contact"].map((id) => (
                   <li key={id}>
                     <ScrollLink
                       to={id}
@@ -266,7 +282,7 @@ const HomePage = () => {
                 <LampDemo />
               </div>
             )}
-            <div id="hero" className="flex flex-col md:flex-row items-center gap-10">
+            <div id="hero" className="flex flex-col md:flex-row items-center gap-10 ">
               <div
                 className="relative w-72 h-72 md:w-80 md:h-80 group"
                 onMouseEnter={() => setIsHovered(true)}
@@ -320,7 +336,6 @@ const HomePage = () => {
         <div id="about" className="relative z-10 text-center mt-20 p-8 w-full max-w-6xl bg-white/50 dark:bg-black/50 mx-auto rounded-lg shadow-xl backdrop-blur-2xl border border-gray-700 transform transition-all duration-500 hover:shadow-xl hover:scale-102">
           <h2 className="text-5xl font-extrabold mb-8 text-black dark:text-white relative inline-block">
             About Me
-            <span className="absolute -bottom-2 left-1/2 w-32 h-1.5 bg-black dark:bg-white transform -translate-x-1/2 rounded-full"></span>
           </h2>
           <div className="flex flex-col md:flex-row items-center justify-center gap-12">
             <div className="relative w-64 h-64 md:w-72 md:h-72 rounded-full shadow-xl overflow-hidden border-4 border-gray-700 transform transition-all hover:scale-110 hover:shadow-xl hover:border-blue-500 animate-pulse">
@@ -341,11 +356,11 @@ const HomePage = () => {
               </p>
               <div className="flex flex-wrap gap-4 mt-6">
                 {[
-                  { icon: "💻", text: "Open-Source Contributor" },
-                  { icon: "🤖", text: "AI Explorer" },
-                  { icon: "🚀", text: "Tech Innovator" },
-                  { icon: "🎯", text: "Problem Solver" },
-                  { icon: "🌏", text: "Lifelong Learner" },
+                  { icon: "", text: "Open-Source Contributor" },
+                  { icon: "", text: "AI Explorer" },
+                  { icon: "", text: "Tech Innovator" },
+                  { icon: "", text: "Problem Solver" },
+                  { icon: "", text: "Lifelong Learner" },
                 ].map((item, index) => (
                   <span
                     key={index}
@@ -367,7 +382,6 @@ const HomePage = () => {
         >
           <h2 className="text-5xl font-extrabold mb-12 text-black dark:text-white relative inline-block">
             Skills
-            <span className="absolute top-12 left-1/2 w-32 h-1.5 bg-black dark:bg-white transform -translate-x-1/2 rounded-full" />
           </h2>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 justify-items-center">
@@ -388,10 +402,15 @@ const HomePage = () => {
             ))}
           </div>
         </div>
-                <div id="Certificate" className="relative z-10 text-center p-8 max-w-4xl mx-auto rounded-lg">
-          {/* <CertificateGallery certificates={certificates} /> */}
+
+        <div id="projects" className="relative z-10 mt-20 p-8 w-full max-w-6xl mx-auto text-center bg-white/50 dark:bg-black/50 rounded-lg shadow-xl backdrop-blur-2xl border border-gray-700">
+          <ProjectShowcase darkMode={isDark} />
         </div>
-        <div id="contact" className="relative z-10 text-center p-8 max-w-4xl mx-auto rounded-lg">
+        
+        {/* <div id="Certificate" className="relative z-10 text-center p-8 max-w-4xl mx-auto rounded-lg">
+          <CertificateGallery darkMode={isDark}/>
+        </div> */}
+        <div id="contact" className="relative text-center p-8 max-w-4xl mx-auto rounded-lg">
           <ContactSection />
         </div>
       </TracingBeam>
