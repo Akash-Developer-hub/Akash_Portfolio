@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ExternalLink, Github, Play, Calendar } from "lucide-react";
-import { GlowingEffect } from "./GlowingEffect";
+import {  Github, Play, Calendar } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 
 const FunGitHubButton = () => {
@@ -111,10 +110,8 @@ const projects: Project[] = [
 ];
 
 export function ProjectShowcase({ darkMode }: { darkMode: boolean }) {
-    const [activeFilter, setActiveFilter] = useState("All");
-    const [hoveredProject, setHoveredProject] = useState<number | null>(null);
-
-    const filters = ["All", "AI/ML", "Web App", "Computer Vision"];
+    const [activeFilter,] = useState("All");
+    const [, setHoveredProject] = useState<number | null>(null);
 
     const filteredProjects = activeFilter === "All"
         ? projects
